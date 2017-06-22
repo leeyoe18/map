@@ -1,7 +1,7 @@
 import 'fetch-detector';
 
 import { base64decodeFunc } from './base64';
-import uuid from "common/uuid";
+import uuid from "./uuid";
 
 const errorMessages = (res) => `${res.status} ${res.statusText}`;
 

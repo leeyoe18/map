@@ -11,12 +11,13 @@ import {
   Text,
   View
 } from 'react-native';
+import App from './containers/app';
  import BaiduMap from './containers/baidu-map';
 
 export default class AwesomeProject extends Component {
   render() {
     return (
-      <BaiduMap style={styles.container}/>
+      <App style={styles.container}/>
     );
   }
 }
@@ -27,17 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);

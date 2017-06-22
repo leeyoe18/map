@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     map: {
-        flex: 1
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height - 24
     }
 });

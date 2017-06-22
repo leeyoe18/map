@@ -8,10 +8,13 @@ import React, {
 
 import {
     StyleSheet,
-    Text
+    Text,
+    View
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import { Button } from 'antd-mobile';
+import { get } from '../../services/project';
+import BaiduMap from '../baidu-map';
 
 export default class BaiduMapDemo extends Component {
 
@@ -24,22 +27,19 @@ export default class BaiduMapDemo extends Component {
     }
 
     componentDidMount() {
+        get('getProjects', null, (data) => {
+
+        });
     }
 
     render() {
         return (
-            <View style={styles.container}>
-
-            </View>
+            <BaiduMap style={styles.container}/>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    row: {
-        flexDirection: 'row',
-        height: 40
-    },
     container: {
         flex: 1,
         justifyContent: 'flex-start',
