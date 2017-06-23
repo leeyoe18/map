@@ -29,30 +29,36 @@ export default class BaiduMapDemo extends Component {
         super();
 
         this.state = {
-            mayType: MapTypes.NORMAL,
+            mayType: MapTypes.SATELLITE,
             zoom: 15,
             center: {
                 longitude: 113.981718,
                 latitude: 22.542449
             },
             trafficEnabled: false,
-            baiduHeatMapEnabled: false,
-            markers: [{
-                longitude: 113.981718,
-                latitude: 22.542449,
-                title: "Window of the world"
-            },{
-                longitude: 113.995516,
-                latitude: 22.537642,
-                title: ""
-            }]
+            baiduHeatMapEnabled: false
         };
     }
 
     componentDidMount() {
+
     }
 
     render() {
+        const markers = this.props.data.map(data => {
+           return {
+               longitude: data.long,
+               latitude: data.lat,
+               title: data.name
+           };
+        });
+        let center = {
+            longitude: 113.981718,
+            latitude: 22.542449
+        };
+        if(markers.length > 0) {
+            center = markers[0];
+        }
         return (
             <View style={styles.container}>
                 <MapView
@@ -60,9 +66,9 @@ export default class BaiduMapDemo extends Component {
                     baiduHeatMapEnabled={this.state.baiduHeatMapEnabled}
                     zoom={this.state.zoom}
                     mapType={this.state.mapType}
-                    center={this.state.center}
+                    center={center}
                     marker={this.state.marker}
-                    markers={this.state.markers}
+                    markers={markers}
                     style={styles.map}
                     onMarkerClick={(e) => {
                         console.warn(JSON.stringify(e));
@@ -88,6 +94,6 @@ const styles = StyleSheet.create({
     },
     map: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height - 24
+        height: Dimensions.get('window').height - 145
     }
 });

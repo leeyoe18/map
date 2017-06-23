@@ -12,11 +12,12 @@ import {
     View
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import { Button } from 'antd-mobile';
+import { Button, Card, Tabs } from 'antd-mobile';
 import { get } from '../../services/project';
 import BaiduMap from '../baidu-map';
+import All from '../all-projects';
 
-export default class BaiduMapDemo extends Component {
+export default class App extends Component {
 
     constructor(props) {
         super(props);
@@ -33,8 +34,27 @@ export default class BaiduMapDemo extends Component {
     }
 
     render() {
+        return <All/>;
         return (
-            <BaiduMap style={styles.container}/>
+            <Tabs style={styles.container}>
+                <Tabs.TabPane tab="所有项目" key="1">
+                    <All/>
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="新开工项目" key="2">
+                    <Card style={styles.card}>
+                        <Card.Body>
+                            <BaiduMap />
+                        </Card.Body>
+                    </Card>
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="项目建设分析" key="3">
+                    <Card style={styles.card}>
+                        <Card.Body>
+
+                        </Card.Body>
+                    </Card>
+                </Tabs.TabPane>
+            </Tabs>
         );
     }
 }
@@ -48,5 +68,8 @@ const styles = StyleSheet.create({
     },
     map: {
         flex: 1
+    },
+    card: {
+        height: Dimensions.get('window').height - 70
     }
 });
