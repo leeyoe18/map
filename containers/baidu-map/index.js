@@ -21,7 +21,11 @@ import {
     TouchableHighlight
 } from 'react-native';
 
+import { Popover } from 'antd-mobile';
+
 import Dimensions from 'Dimensions';
+
+const Item = Popover.Item;
 
 export default class BaiduMapDemo extends Component {
 
@@ -36,7 +40,8 @@ export default class BaiduMapDemo extends Component {
                 latitude: 22.542449
             },
             trafficEnabled: false,
-            baiduHeatMapEnabled: false
+            baiduHeatMapEnabled: false,
+            visible: true
         };
     }
 
@@ -49,7 +54,8 @@ export default class BaiduMapDemo extends Component {
            return {
                longitude: data.long,
                latitude: data.lat,
-               title: data.name
+               title: data.name,
+               data: data
            };
         });
         let center = {
@@ -75,6 +81,20 @@ export default class BaiduMapDemo extends Component {
                     }}
                     onMapClick={(e) => {
                     }}
+                />
+                <Popover
+                    mask
+                    overlayStyle={{ color: 'currentColor' }}
+                    visible={this.state.visible}
+                    overlay={[
+                        (<Item key="4" value="scan" >扫一扫</Item>),
+                        (<Item key="5" value="special" style={{ whiteSpace: 'nowrap' }}>我的二维码</Item>),
+                        (<Item key="6" value="button ct" >
+                            <span style={{ marginRight: 5 }}>帮助</span>
+                        </Item>),
+                    ]}
+                    onVisibleChange={this.handleVisibleChange}
+                    onSelect={this.onSelect}
                 />
             </View>
         );

@@ -10,7 +10,7 @@ import {
     StyleSheet, View, Button
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import { Card, Tabs, List, WingBlank, Flex } from 'antd-mobile';
+import { Card, Tabs, List, WingBlank, Flex, SegmentedControl } from 'antd-mobile';
 import { get } from '../../services/project';
 import BaiduMap from '../baidu-map';
 
@@ -55,23 +55,17 @@ export default class BaiduMapDemo extends Component {
         return results;
     };
 
-    getColor = (key) => {
-        if (key === this.state.activeKey) return '#108ee9';
-        return '#ccc'
-    };
-
-    handleClickYear = (key) => {
-        this.setState({
-            activeKey: key
-        });
-        if(key === 'all') {
+    onChange = (e) => {
+        const index = e.nativeEvent.selectedSegmentIndex;
+        if(index === 0) {
             this.setState({
                 mapData: this.state.data.rows
             });
         } else {
             const years = this.getYears(this.state.data);
+            const year = Object.keys(years)[index - 1];
             this.setState({
-                mapData: years[key]
+                mapData: years[year]
             });
         }
     };
@@ -80,26 +74,20 @@ export default class BaiduMapDemo extends Component {
         const years = this.getYears(this.state.data);
         let total = 0;
         if(this.state.data.rows) total = this.state.data.rows.length;
-        const items = [
-            <Flex.Item key='all'>
-                <Button title={`全部 (${total})`} color={this.getColor('all')} onPress={() => {this.handleClickYear('all')}}/>
-            </Flex.Item>
-        ];
+        const items = [`全部 (${total})`];
         for(const year of Object.keys(years)) {
             const item = years[year];
-            items.push(
-                <Flex.Item key={year}>
-                    <Button title={`${year} (${item.length})`} color={this.getColor(year)} onPress={() => {this.handleClickYear(year)}}/>
-                </Flex.Item>
-            );
+            items.push(`${year} (${item.length})`);
         }
         return (
             <Card style={styles.card}>
                 <Card.Body>
                     <WingBlank style={styles.toolbar}>
-                        <Flex>
-                            {items}
-                        </Flex>
+                        <SegmentedControl
+                            selectedIndex={0}
+                            values={items}
+                            onChange={this.onChange}
+                        />
                     </WingBlank>
                     <BaiduMap
                         data={this.state.mapData}
