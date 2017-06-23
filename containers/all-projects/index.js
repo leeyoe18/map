@@ -35,6 +35,7 @@ export default class BaiduMapDemo extends Component {
                     data: data.data,
                     mapData: data.data.rows
                 });
+                this.props.setTotal(data.data.rows.length);
             }
         });
     }
