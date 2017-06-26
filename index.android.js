@@ -17,18 +17,9 @@ import App from './containers/app';
 export default class AwesomeProject extends Component {
   render() {
     return (
-      <App style={styles.container}/>
+      <App/>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  }
-});
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);

@@ -40,7 +40,7 @@ export default class BaiduMapDemo extends Component {
                     header: data.data.header,
                     mapData: data.data.rows
                 });
-                this.props.setTotal(data.data.rows.length);
+                // this.props.setTotal(data.data.rows.length);
             }
         });
     }
