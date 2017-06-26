@@ -7,6 +7,7 @@ import Dimensions from 'Dimensions';
 import { Button, Card, Tabs, TabBar } from 'antd-mobile';
 import { get } from '../../services/project';
 import All from '../all-projects';
+import New from '../new';
 
 const Item = TabBar.Item;
 
@@ -34,8 +35,8 @@ export default class App extends Component {
 
     showContent = () => {
         switch(this.state.selectedTab) {
-            case 'all': return <All setTotal={this.setTotal}/>;
-            case 'new': return <Text>new</Text>;
+            case 'all': return <All setTotal={this.setTotal} interface="getProjects"/>;
+            case 'new': return <New />;
             case 'analysis': return <Text>analysis</Text>;
             default: return <Text>default</Text>;
         }

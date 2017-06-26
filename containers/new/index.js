@@ -10,10 +10,10 @@ import {
     StyleSheet, View, Platform, PixelRatio, Text
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import { Card, Tabs, List, WingBlank, Flex, SegmentedControl, Button, Toast } from 'antd-mobile';
+import { Card, Tabs, List, WingBlank, Flex, SegmentedControl, Button } from 'antd-mobile';
 import { get } from '../../services/project';
 import BaiduMap from '../baidu-map';
-import Table from './table';
+import Table from '../all-projects/table';
 
 const Item = List.Item;
 
@@ -31,16 +31,13 @@ export default class BaiduMapDemo extends Component {
     }
 
     componentDidMount() {
-        Toast.loading('Loading...', 0);
-        get('getProjects', null, (data) => {
-            Toast.hide();
+        get('getProjects?isBatch=true', null, (data) => {
             if(data.pass) {
                 this.setState({
                     data: data.data,
                     header: data.data.header,
                     mapData: data.data.rows
                 });
-                this.props.setTotal(data.data.rows.length);
             }
         });
     }
