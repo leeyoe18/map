@@ -14,6 +14,9 @@ import { Tabs, Toast } from 'antd-mobile';
 import { get } from '../../services/project';
 import BaseInfo from './base-info';
 import Status from './node-status';
+import Issue from './issue';
+import Inspect from './inspect';
+import BaiduMap from '../baidu-map';
 
 const TabPane = Tabs.TabPane;
 
@@ -44,6 +47,10 @@ export default class Detail extends Component {
     }
 
     render() {
+        const mapData = [];
+        if(this.state.data.geo) {
+            mapData[0] = this.state.data.geo;
+        }
         return (
             <View style={styles.container}>
                 <Tabs>
@@ -60,13 +67,15 @@ export default class Detail extends Component {
                         <Status data={this.state.data}/>
                     </TabPane>
                     <TabPane tab="项目问题" key="problem">
-                        <Text>123</Text>
+                        <Issue data={this.state.data}/>
                     </TabPane>
                     <TabPane tab="项目督查" key="ducha">
-                        <Text>123</Text>
+                        <Inspect data={this.state.data}/>
                     </TabPane>
                     <TabPane tab="项目地理位置" key="location">
-                        <Text>123</Text>
+                        <BaiduMap
+                            data={mapData}
+                        />
                     </TabPane>
                 </Tabs>
             </View>
