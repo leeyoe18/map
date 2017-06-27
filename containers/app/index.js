@@ -21,6 +21,7 @@ import {
 import All from '../all-projects';
 import New from '../new';
 import Detail from '../detail';
+import Analysis from '../analysis';
 
 const MyTab = TabNavigator({
     All: {
@@ -32,7 +33,7 @@ const MyTab = TabNavigator({
         navigationOptions: ()=> TabOptions('新开工项目','新开工项目'),
     },
     Test3:{
-        screen: New,
+        screen: Analysis,
         navigationOptions: ()=> TabOptions('项目建设分析','项目建设分析'),
     },
 },{
