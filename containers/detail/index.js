@@ -73,9 +73,12 @@ export default class Detail extends Component {
                         <Inspect data={this.state.data}/>
                     </TabPane>
                     <TabPane tab="项目地理位置" key="location">
-                        <BaiduMap
-                            data={mapData}
-                        />
+                        <View style={styles.map}>
+                            <BaiduMap
+                                data={mapData}
+                                mapStyle={styles.mapStyle}
+                            />
+                        </View>
                     </TabPane>
                 </Tabs>
             </View>
@@ -89,5 +92,13 @@ const styles = StyleSheet.create({
         padding: 16,
         overflow: 'scroll',
         backgroundColor: '#fff'
+    },
+    map: {
+        height: Dimensions.get('window').height - 60
+    },
+    mapStyle: {
+        marginTop: 16,
+        width: Dimensions.get('window').width - 32,
+        height: Dimensions.get('window').height - 170
     }
 });

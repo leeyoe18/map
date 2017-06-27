@@ -75,7 +75,7 @@ export default class BaiduMapDemo extends Component {
                     center={center}
                     marker={this.state.marker}
                     markers={markers}
-                    style={styles.map}
+                    style={this.props.mapStyle || styles.map}
                     onMarkerClick={(e) => {
                         console.warn(JSON.stringify(e));
                     }}
