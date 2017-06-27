@@ -13,6 +13,7 @@ import Dimensions from 'Dimensions';
 import { Tabs, Toast } from 'antd-mobile';
 import { get } from '../../services/project';
 import BaseInfo from './base-info';
+import Status from './node-status';
 
 const TabPane = Tabs.TabPane;
 
@@ -56,7 +57,7 @@ export default class Detail extends Component {
                         <Text>123</Text>
                     </TabPane>
                     <TabPane tab="项目节点状态" key="node">
-                        <Text>123</Text>
+                        <Status data={this.state.data}/>
                     </TabPane>
                     <TabPane tab="项目问题" key="problem">
                         <Text>123</Text>
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        overflow: 'scroll'
+        overflow: 'scroll',
+        backgroundColor: '#fff'
     }
 });

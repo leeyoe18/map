@@ -66,7 +66,8 @@ export default class BaseInfo extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        overflow: 'visible'
+        overflow: 'visible',
+        marginTop: 16
     },
     label: {
         flex: 1,

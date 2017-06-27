@@ -37,7 +37,7 @@ export default class Table extends Component {
                         <View style={styles.header}>
                             {
                                 this.props.columns.map(col => (
-                                    <View style={styles.col} key={col.key}>
+                                    <View style={col.style || styles.col} key={col.key}>
                                         <Text>{col.title}</Text>
                                     </View>
                                 ))
@@ -51,13 +51,13 @@ export default class Table extends Component {
                                     this.props.columns.map(col => {
                                        if(col.render) {
                                            return (
-                                               <View style={styles.col} key={col.key}>
+                                               <View style={col.style || styles.col} key={col.key}>
                                                    {col.render(rowData)}
                                                </View>
                                            )
                                        } else {
                                            return (
-                                               <View style={styles.col} key={col.key}>
+                                               <View style={col.style || styles.col} key={col.key}>
                                                    <Text>{rowData[col.dataIndex]}</Text>
                                                </View>
                                            )
@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
     col: {
         flex: 1,
         flexDirection: 'column',
-        padding: 8,
+        alignItems: 'stretch',
+        padding: 16,
         borderBottomColor: '#ccc',
         borderBottomWidth: 1
     },
