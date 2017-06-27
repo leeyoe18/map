@@ -17,6 +17,7 @@ import Status from './node-status';
 import Issue from './issue';
 import Inspect from './inspect';
 import BaiduMap from '../baidu-map';
+import Invest from './invest';
 
 const TabPane = Tabs.TabPane;
 
@@ -61,7 +62,7 @@ export default class Detail extends Component {
                         <Text>123</Text>
                     </TabPane>
                     <TabPane tab="项目月度投资" key="month">
-                        <Text>123</Text>
+                        <Invest data={this.state.data}/>
                     </TabPane>
                     <TabPane tab="项目节点状态" key="node">
                         <Status data={this.state.data}/>
