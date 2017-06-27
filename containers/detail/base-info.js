@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import {
-    StyleSheet, View, Platform, PixelRatio, Text
+    StyleSheet, View, Platform, PixelRatio, Text, ScrollView
 } from 'react-native';
 import { Flex, WhiteSpace } from 'antd-mobile';
 import Dimensions from 'Dimensions';
@@ -27,7 +27,7 @@ export default class BaseInfo extends Component {
     render() {
         let data = this.props.data.info || [];
         return (
-            <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 {data.map((item, index) => {
                     if(item.length > 1) {
                         return (
@@ -59,14 +59,14 @@ export default class BaseInfo extends Component {
                         )
                     }
                 })}
-            </View>
+            </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        overflow: 'scroll'
+        overflow: 'visible'
     },
     label: {
         flex: 1,
