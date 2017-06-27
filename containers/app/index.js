@@ -20,6 +20,7 @@ import {
 
 import All from '../all-projects';
 import New from '../new';
+import Detail from '../detail';
 
 const MyTab = TabNavigator({
     All: {
@@ -55,6 +56,9 @@ const MyNav = StackNavigator({
     Main:{
         screen: MyTab,
     },
+    Detail: {
+        screen: Detail
+    }
 });
 
 const TabOptions = (tabBarTitle,navTitle) => {

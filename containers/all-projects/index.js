@@ -88,6 +88,13 @@ export default class BaiduMapDemo extends Component {
         }
     };
 
+    handleClick = (data) => {
+        const { navigate } = this.props.navigation;
+        navigate('Detail', {
+            path: data.id
+        });
+    };
+
     render() {
         const years = this.getYears(this.state.data);
         let total = 0;
@@ -129,8 +136,8 @@ export default class BaiduMapDemo extends Component {
             columns.push({
                 title: 'Action',
                 key: 'Action',
-                render: () => (
-                    <Button style={styles.btn}>
+                render: (data) => (
+                    <Button style={styles.btn} onClick={() => {this.handleClick(data)}}>
                         详情
                     </Button>
                 )

@@ -72,10 +72,6 @@ export default class Table extends Component {
         );
     };
 
-    showDetail = () => {
-
-    };
-
     render() {
         return (
             <View>
