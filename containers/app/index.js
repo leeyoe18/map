@@ -18,6 +18,8 @@ import {
     AsyncStorage
 } from 'react-native';
 
+import { Icon, Button } from 'antd-mobile';
+
 import All from '../all-projects';
 import New from '../new';
 import Detail from '../detail';
@@ -26,15 +28,15 @@ import Analysis from '../analysis';
 const MyTab = TabNavigator({
     All: {
         screen: All,
-        navigationOptions: ()=> TabOptions('所有项目','所有项目')
+        navigationOptions: ()=> TabOptions('所有项目','所有项目', '\ue685')
     },
-    Test2: {
+    New: {
         screen: New,
-        navigationOptions: ()=> TabOptions('新开工项目','新开工项目'),
+        navigationOptions: ()=> TabOptions('新开工项目','新开工项目', '\ue660'),
     },
-    Test3:{
+    Analysis:{
         screen: Analysis,
-        navigationOptions: ()=> TabOptions('项目建设分析','项目建设分析'),
+        navigationOptions: ()=> TabOptions('项目建设分析','项目建设分析', '\uE65C'),
     },
 },{
     tabBarPosition:'bottom', // 设置tabbar的位置，iOS默认在底部，安卓默认在顶部。（属性值：'top'，'bottom')
@@ -58,28 +60,52 @@ const MyNav = StackNavigator({
         screen: MyTab,
     },
     Detail: {
-        screen: Detail
+        screen: Detail,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
     }
 });
 
-const TabOptions = (tabBarTitle,navTitle) => {
+const StackOptions = ({navigation}) => {
+    let {state,goBack} = navigation;
+    // 用来判断是否隐藏或显示header
+    const visible= state.params.isVisible;
+    let header;
+    if (visible === true){
+        header = null;
+    }
+    const headerStyle = {backgroundColor:'#4ECBFC'};
+    const headerTitle = state.params.title;
+    const headerTitleStyle = {fontSize: 14,color:'white',alignSelf:'center'};
+    // const headerBackTitle = false;
+    // const headerLeft = (
+    //     <Button
+    //         style={{marginLeft:13, opacity: .1}}
+    //         onClick={()=>{goBack()}}
+    //     >
+    //         <Icon
+    //             type='check'
+    //             size={30}
+    //         />
+    //     </Button>
+    // );
+    return {headerStyle,headerTitle,header, headerTitleStyle}
+};
+
+const TabOptions = (tabBarTitle,navTitle, icon) => {
     // console.log(navigation);
     const tabBarLabel = tabBarTitle;
-    // const tabBarIcon = (({tintColor,focused})=> {
-    //     return(
-    //         <Image
-    //             source={!focused ? normalImage : selectedImage}
-    //             style={[{height:35,width:35 }, {tintColor: tintColor}]}
-    //         />
-    //     )
-    // });
+    const tabBarIcon = (({tintColor,focused})=> {
+        return(
+            <Icon type={icon} color={focused ? '#4ECBFC' : 'white'}/>
+        )
+    });
     const headerTitle = navTitle;
     const headerTitleStyle = {fontSize:14,color:'white',alignSelf:'center'};
     // header的style
-    const headerStyle = {backgroundColor:'#4ECBFC'};
+    const headerStyle = {backgroundColor:'#49a9ee'};
     const tabBarVisible = true;
     // const header = null;
-    return {tabBarLabel,headerTitle,headerTitleStyle,headerStyle,tabBarVisible};
+    return {tabBarLabel,headerTitle,tabBarIcon,headerTitleStyle,headerStyle,tabBarVisible};
 };
 
 export default MyNav;

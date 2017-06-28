@@ -91,7 +91,8 @@ export default class BaiduMapDemo extends Component {
     handleClick = (data) => {
         const { navigate } = this.props.navigation;
         navigate('Detail', {
-            path: data.id
+            path: data.id,
+            title: data.name
         });
     };
 
