@@ -13,7 +13,6 @@ import {
 } from 'react-native-baidu-map';
 
 import {
-    Button,
     AppRegistry,
     StyleSheet,
     Text,
@@ -21,11 +20,17 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-import { Popover } from 'antd-mobile';
+import { Popover, Card, Button } from 'antd-mobile';
 
 import Dimensions from 'Dimensions';
 
-const Item = Popover.Item;
+const statusMap = {
+    0: '红灯',
+    1: '黄灯',
+    2: '绿灯',
+    3: '蓝灯',
+    4: '白灯'
+};
 
 export default class BaiduMapDemo extends Component {
 
@@ -41,13 +46,46 @@ export default class BaiduMapDemo extends Component {
             },
             trafficEnabled: false,
             baiduHeatMapEnabled: false,
-            visible: true
+            visible: false,
+            markerData: {}
         };
     }
 
     componentDidMount() {
 
     }
+
+    markerClick = (e) => {
+        const title = e.title;
+        const data = this.props.data.find(data => data.name === title);
+        this.setState({
+            markerData: data,
+            visible: true
+        });
+        // console.warn(JSON.stringify(e));
+    };
+
+    mapClick = (e) => {
+        if(!e.title) {
+            this.hideCard();
+        }
+    };
+
+    hideCard = () => {
+        this.setState({
+            visible: false,
+            markerData: {}
+        });
+    };
+
+    toPath = () => {
+        const { navigate } = this.props.navigation;
+        const data = this.state.markerData;
+        navigate('Detail', {
+            path: data.id,
+            title: data.name
+        });
+    };
 
     render() {
         const markers = this.props.data.map(data => {
@@ -65,6 +103,40 @@ export default class BaiduMapDemo extends Component {
         if(markers.length > 0) {
             center = markers[0];
         }
+        let card = null;
+        if(this.state.visible && this.props.navigation) {
+            card = (
+                <View style={styles.tip}>
+                    <Card>
+                        <Card.Header
+                            title={
+                                <Text style={styles.cardTitle} onPress={this.toPath}>
+                                    {this.state.markerData.name}
+                                </Text>
+                            }
+                            extra={
+                                <View onPress={this.hideCard} style={styles.cardExtra}>
+                                    <Text style={styles.cardText}>
+                                        &times;
+                                    </Text>
+                                </View>
+                            }
+                        />
+                        <Card.Body>
+                            <Text style={styles.text}>年份: {this.state.markerData.year}</Text>
+                            <Text style={styles.text}>状态: {statusMap[this.state.markerData.status]}</Text>
+                            <Button
+                                size='small'
+                                style={styles.btn}
+                                onClick={this.toPath}
+                            >
+                                详情
+                            </Button>
+                        </Card.Body>
+                    </Card>
+                </View>
+            );
+        }
         return (
             <View style={styles.container}>
                 <MapView
@@ -76,26 +148,10 @@ export default class BaiduMapDemo extends Component {
                     marker={this.state.marker}
                     markers={markers}
                     style={this.props.mapStyle || styles.map}
-                    onMarkerClick={(e) => {
-                        console.warn(JSON.stringify(e));
-                    }}
-                    onMapClick={(e) => {
-                    }}
+                    onMarkerClick={this.markerClick}
+                    onMapClick={this.mapClick}
                 />
-                <Popover
-                    mask
-                    overlayStyle={{ color: 'currentColor' }}
-                    visible={this.state.visible}
-                    overlay={[
-                        (<Item key="4" value="scan" >扫一扫</Item>),
-                        (<Item key="5" value="special" style={{ whiteSpace: 'nowrap' }}>我的二维码</Item>),
-                        (<Item key="6" value="button ct" >
-                            <span style={{ marginRight: 5 }}>帮助</span>
-                        </Item>),
-                    ]}
-                    onVisibleChange={this.handleVisibleChange}
-                    onSelect={this.onSelect}
-                />
+                {card}
             </View>
         );
     }
@@ -115,5 +171,29 @@ const styles = StyleSheet.create({
     map: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height - 210
+    },
+    tip: {
+        position: 'absolute',
+        top: 32,
+        right: 32,
+        width: 220,
+        height: 280
+    },
+    cardText: {
+        fontSize: 24,
+        textAlign: 'right'
+    },
+    cardTitle: {
+        color: '#108ee9'
+    },
+    text: {
+        marginLeft: 16,
+        marginBottom: 16
+    },
+    cardExtra: {
+
+    },
+    btn: {
+
     }
 });

@@ -108,6 +108,7 @@ export default class BaiduMapDemo extends Component {
         let type = (
             <BaiduMap
                 data={this.state.mapData}
+                navigation={this.props.navigation}
             />
         );
 
