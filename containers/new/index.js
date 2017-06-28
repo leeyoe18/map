@@ -85,6 +85,14 @@ export default class BaiduMapDemo extends Component {
         }
     };
 
+    handleClick = (data) => {
+        const { navigate } = this.props.navigation;
+        navigate('Detail', {
+            path: data.id,
+            title: data.name
+        });
+    };
+
     render() {
         const years = this.getYears(this.state.data);
         let total = 0;
@@ -105,7 +113,7 @@ export default class BaiduMapDemo extends Component {
                 let render = null;
                 if(data.key === 'isAttention') {
                     render = (rowData) => {
-                        return <Text>{rowData.isAttention ? '是' : '否'}</Text>;
+                        return <Text tyle={rowData.isAttention? styles.green : ''}>{rowData.isAttention ? '是' : '否'}</Text>;
                     };
                 } else if(data.key === 'long' || data.key === 'lat') {
                     render = (rowData) => {
@@ -126,8 +134,8 @@ export default class BaiduMapDemo extends Component {
             columns.push({
                 title: 'Action',
                 key: 'Action',
-                render: () => (
-                    <Button style={styles.btn}>
+                render: (data) => (
+                    <Button style={styles.btn} onClick={() => {this.handleClick(data)}}>
                         详情
                     </Button>
                 )
@@ -224,7 +232,10 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     btn: {
-        width: 90,
+        width: 70,
         height: 30
+    },
+    green: {
+        color: '#008000'
     }
 });
