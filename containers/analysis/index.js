@@ -168,7 +168,6 @@ export default class BaiduMapDemo extends Component {
             <Carousel
                 style={styles.container}
                 autoplay={false}
-                infinite
                 swipeSpeed={35}
             >
                 {this.getCharts()}
