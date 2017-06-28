@@ -10,7 +10,7 @@ import {
     StyleSheet, View, Platform, PixelRatio, Text
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import { Card, Tabs, List, WingBlank, Flex, SegmentedControl, Button, Toast } from 'antd-mobile';
+import { Card, Tabs, List, WingBlank, Flex, SegmentedControl, Button, Toast, Icon } from 'antd-mobile';
 import { get } from '../../services/project';
 import BaiduMap from '../baidu-map';
 import Table from './table';
@@ -115,7 +115,7 @@ export default class BaiduMapDemo extends Component {
                 let render = null;
                 if(data.key === 'isAttention') {
                     render = (rowData) => {
-                        return <Text>{rowData.isAttention ? '是' : '否'}</Text>;
+                        return <Text style={rowData.isAttention? styles.green : ''}>{rowData.isAttention ? '是' : '否'}</Text>;
                     };
                 } else if(data.key === 'long' || data.key === 'lat') {
                     render = (rowData) => {
@@ -190,41 +190,41 @@ const styles = StyleSheet.create({
         marginRight: 8
     },
     style0: {
-        width: 30,
-        height: 30,
-        borderRadius: 30,
+        width: 24,
+        height: 24,
+        borderRadius: 24,
         borderWidth: (Platform.OS==='ios' ? 1.0 : 1.5) / PixelRatio.get(),
-        backgroundColor: '#f00',
+        backgroundColor: '#e62424',
         borderColor: '#ccc'
     },
     style1: {
-        width: 30,
-        height: 30,
-        borderRadius: 30,
+        width: 24,
+        height: 24,
+        borderRadius: 24,
         borderWidth: (Platform.OS==='ios' ? 1.0 : 1.5) / PixelRatio.get(),
-        backgroundColor: '#0f0',
+        backgroundColor: '#fdfd09',
         borderColor: '#ccc'
     },
     style2: {
-        width: 30,
-        height: 30,
-        borderRadius: 30,
+        width: 24,
+        height: 24,
+        borderRadius: 24,
         borderWidth: (Platform.OS==='ios' ? 1.0 : 1.5) / PixelRatio.get(),
-        backgroundColor: '#0ff',
+        backgroundColor: '#18ef57',
         borderColor: '#ccc'
     },
     style3: {
-        width: 30,
-        height: 30,
-        borderRadius: 30,
+        width: 24,
+        height: 24,
+        borderRadius: 24,
         borderWidth: (Platform.OS==='ios' ? 1.0 : 1.5) / PixelRatio.get(),
-        backgroundColor: '#00f',
+        backgroundColor: '#266fea',
         borderColor: '#ccc'
     },
     style4: {
-        width: 30,
-        height: 30,
-        borderRadius: 30,
+        width: 24,
+        height: 24,
+        borderRadius: 24,
         borderWidth: (Platform.OS==='ios' ? 1.0 : 1.5) / PixelRatio.get(),
         backgroundColor: '#fff',
         borderColor: '#ccc'
@@ -234,7 +234,10 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     btn: {
-        width: 90,
+        width: 70,
         height: 30
+    },
+    green: {
+        color: '#008000'
     }
 });

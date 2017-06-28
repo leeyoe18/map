@@ -10,7 +10,7 @@ import {
     StyleSheet, ScrollView, View
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import { Flex } from 'antd-mobile';
+import { Flex, Carousel } from 'antd-mobile';
 import { get } from '../../services/project';
 import Echarts from 'native-echarts';
 
@@ -81,7 +81,7 @@ export default class BaiduMapDemo extends Component {
                 name: data.title,
                 type: 'pie',
                 radius: '55%',
-                center: ['50%', '60%'],
+                center: ['50%', '50%'],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -134,11 +134,14 @@ export default class BaiduMapDemo extends Component {
             charts = this.state.data.map((data, index) => {
                 const option = {
                     title: {
-                        text: data.title
+                        text: data.title,
+                        left: 16,
+                        top: 16
                     },
                     tooltip : this.getTooltip(data),
                     legend: {
-                        right: 0,
+                        right: 16,
+                        top: 16,
                         data: this.getLegend(data)
                     },
                     xAxis : this.getX(data),
@@ -150,7 +153,7 @@ export default class BaiduMapDemo extends Component {
                     <View style={styles.body} key={index}>
                         <Echarts
                             option={option}
-                            height={Dimensions.get('window').height - 150}
+                            height={Dimensions.get('window').height - 200}
                             width={Dimensions.get('window').width - 32}
                         />
                     </View>
@@ -162,18 +165,21 @@ export default class BaiduMapDemo extends Component {
 
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.container}>
+            <Carousel
+                style={styles.container}
+                autoplay={false}
+                infinite
+                swipeSpeed={35}
+            >
                 {this.getCharts()}
-            </ScrollView>
+            </Carousel>
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        overflow: 'visible',
-        marginTop: 16,
-        alignItems: 'center'
+        overflow: 'hidden'
     },
     body: {
         padding: 16,
