@@ -115,11 +115,11 @@ export default class BaiduMapDemo extends Component {
                                 </Text>
                             }
                             extra={
-                                <View onPress={this.hideCard} style={styles.cardExtra}>
-                                    <Text style={styles.cardText}>
+                                <Button onClick={this.hideCard} style={styles.cardExtra}>
+                                    <Text style={styles.cardText} onClick={this.hideCard}>
                                         &times;
                                     </Text>
-                                </View>
+                                </Button>
                             }
                         />
                         <Card.Body>
@@ -181,7 +181,8 @@ const styles = StyleSheet.create({
     },
     cardText: {
         fontSize: 24,
-        textAlign: 'right'
+        textAlign: 'right',
+        color: '#ccc'
     },
     cardTitle: {
         color: '#108ee9'
@@ -191,7 +192,10 @@ const styles = StyleSheet.create({
         marginBottom: 16
     },
     cardExtra: {
-
+        height: 16,
+        borderColor: 'rgba(0,0,0,0)',
+        justifyContent: 'center',
+        alignItems: 'flex-end'
     },
     btn: {
 
