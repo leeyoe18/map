@@ -12,7 +12,7 @@
 ```sh
  $ react-native run-android
 ```
-##打包
+## 打包
 
 ```sh
  $ cd android && ./gradlew assembleRelease
