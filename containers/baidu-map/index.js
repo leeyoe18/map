@@ -20,7 +20,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-import { Popover, Card, Button } from 'antd-mobile';
+import { Popover, Card, Button, SegmentedControl } from 'antd-mobile';
 
 import Dimensions from 'Dimensions';
 
@@ -38,7 +38,7 @@ export default class BaiduMapDemo extends Component {
         super();
 
         this.state = {
-            mayType: MapTypes.SATELLITE,
+            mapType: MapTypes.NORMAL,
             zoom: 15,
             center: {
                 longitude: 113.981718,
@@ -87,6 +87,18 @@ export default class BaiduMapDemo extends Component {
         });
     };
 
+    onChangeMapType = (value) => {
+        if(value === '普通') {
+            this.setState({
+                mapType: MapTypes.NORMAL
+            });
+        } else {
+            this.setState({
+                mapType: MapTypes.SATELLITE
+            });
+        }
+    };
+
     render() {
         const markers = this.props.data.map(data => {
            return {
@@ -126,9 +138,10 @@ export default class BaiduMapDemo extends Component {
                             <Text style={styles.text}>年份: {this.state.markerData.year}</Text>
                             <Text style={styles.text}>状态: {statusMap[this.state.markerData.status]}</Text>
                             <Button
-                                size='small'
+                                size="small"
                                 style={styles.btn}
                                 onClick={this.toPath}
+                                type="primary"
                             >
                                 详情
                             </Button>
@@ -151,6 +164,12 @@ export default class BaiduMapDemo extends Component {
                     onMarkerClick={this.markerClick}
                     onMapClick={this.mapClick}
                 />
+                <View style={styles.mapType}>
+                    <SegmentedControl
+                        values={['普通', '卫星']}
+                        onValueChange={this.onChangeMapType}
+                    />
+                </View>
                 {card}
             </View>
         );
@@ -174,7 +193,7 @@ const styles = StyleSheet.create({
     },
     tip: {
         position: 'absolute',
-        top: 32,
+        top: 72,
         right: 32,
         width: 220,
         height: 280
@@ -198,6 +217,14 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end'
     },
     btn: {
-
+        width: 200,
+        marginLeft: 8
+    },
+    mapType: {
+        position: 'absolute',
+        top: 24,
+        right: 32,
+        height: 32,
+        width: 80
     }
 });
